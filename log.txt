@@ -1,0 +1,29 @@
+ ----- Naive Bayes -----
+
+Best params:
+var_smoothing: 1e-07
+
+Score: 0.7070679806666249
+
+
+ ----- Logistic Regression -----
+
+Best params:
+C: 0.1
+class_weight: None
+penalty: l1
+solver: liblinear
+
+Score: 0.7957504237022158
+
+
+ ----- Random Forest -----
+
+Best params:
+max_depth: {'max_depth': 15, 'min_samples_split': 5, 'n_estimators': 50}
+min_samples_split: {'max_depth': 15, 'min_samples_split': 5, 'n_estimators': 50}
+n_estimators: {'max_depth': 15, 'min_samples_split': 5, 'n_estimators': 50}
+
+Score: 0.8294331805913
+
+
