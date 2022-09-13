@@ -1,8 +1,11 @@
-import numpy as np
+import torch
+
+import matplotlib.pyplot as plt
 import pandas as pd
 
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.impute import SimpleImputer
+from sklearn.metrics import classification_report
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
@@ -89,7 +92,7 @@ Functions
 '''
 # Create validation dataset with even splits across given collumns
 def create_val_split(dataset, even_cols):
-    splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.2)
+    splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=6)
 
     for train, val in splitter.split(dataset, dataset[even_cols]):
         train_set = dataset.loc[train]
@@ -114,7 +117,7 @@ def scale_test_set(dataset):
     return scaler.fit_transform(dataset)
 
 # Log grid search results
-def log_GS_res(NBparams, NBscore, LRparams, LRscore, RFparams, RFscore):
+def log_results(NBparams, NBscore, LRparams, LRscore, RFparams, RFscore, NNloss, NNreport):
     with open('log.txt', 'w') as f:
 
         f.write(" ----- Naive Bayes -----\n\n")
@@ -132,7 +135,35 @@ def log_GS_res(NBparams, NBscore, LRparams, LRscore, RFparams, RFscore):
         f.write(" ----- Random Forest -----\n\n")
         f.write("Best params:\n")
         for param in RFparams:
-            f.write("{}: {}\n".format(param, RFparams))
+            f.write("{}: {}\n".format(param, RFparams[param]))
         f.write("\nScore: {}\n\n\n".format(RFscore))
 
+        f.write(" ----- Neural Network ------\n\n")
+        f.write("Lowest validation loss: {}\n".format(NNloss))
+        print("\n", NNreport, file=f)
+        f.write("\n\n\n")
+
         f.close()
+
+# Produce chart showing val loss and train loss across epochs for NN approach
+def get_chart(train_list, val_list):
+    plt.plot(train_list)
+    plt.plot(val_list)
+    plt.legend(("Training loss", "Validation loss"))
+    plt.xlabel("Epoch")
+    plt.ylabel("Binary Cross Entropy loss")
+    plt.show()
+
+# Evaluate for accuracy on an evaluation set
+def evaluate(model, dataset):
+    X, Y = dataset
+
+    # Tensorise data
+    X = torch.tensor(X)
+    Y = torch.tensor(Y)
+
+    # Get predictions
+    preds = model(X.reshape(1, X.shape[0], X.shape[1]).float()).flatten()
+    preds = list(map(lambda x: 0 if x < 0.5 else 1, preds.tolist()))
+
+    return (classification_report(Y.tolist(), preds, labels=[0, 1], target_names=["Died", "Survived"]))

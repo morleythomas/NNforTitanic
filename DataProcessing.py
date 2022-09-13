@@ -7,10 +7,10 @@ from sklearn.preprocessing import OneHotEncoder
 from Util import Imputer, CabinCounter, CabinLetter, OneHotter, Dropper
 from Util import create_val_split, create_X_Y_split, scale_test_set
 
-def process(train, test, val=True):
+def process(train, test, val_set=True):
 
     # Create validation set
-    if val:
+    if val_set:
         train, val = create_val_split(train, ['Survived', 'Pclass', 'Sex'])
 
     # Create new columns in dataframes
@@ -23,7 +23,7 @@ def process(train, test, val=True):
     train = letter.fit_transform(X=train)
     test = letter.fit_transform(X=test)
 
-    if val:
+    if val_set:
         val = counter.fit_transform(X=val)
         val = letter.fit_transform(X=val)
 
@@ -35,18 +35,18 @@ def process(train, test, val=True):
     # Transform data
     train = data_pipeline.fit_transform(train)
     test = data_pipeline.fit_transform(test)
-    if val:
+    if val_set:
         val = data_pipeline.fit_transform(val)
 
     # Split train and val into data and targets
     X_train, Y_train = create_X_Y_split(train, 'Survived')
-    if val:
+    if val_set:
         X_val, Y_val = create_X_Y_split(val, 'Survived')
 
     # Scale test set
     test = scale_test_set(test)
 
-    if val:
+    if val_set:
         return [X_train, Y_train], [X_val, Y_val], test
 
     return [X_train, Y_train], test
