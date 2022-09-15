@@ -15,7 +15,9 @@ The neural network is a feedforward network consisting of one hidden layer of 50
 
 ## The data
 The data consists of the following columns, including the top 5 rows so as to exemplify the value formats:
-![Dataframe columns](Images/head)
+
+![Dataframe columns](Images/head.png)
+
 Here, `ParCh` indicates the number of parents/children that accompanied the passenger. `SibSp` indicates the number of sibllings/spouses. `Embarked` refers to which port the passenger embarked on. The `Pclass` column represents ticket classes, ie "first class", "second class" and "third class".
 
 Below shows the data types of the columns, and the number of entries for that column. What we see is that `Age` and `Cabin` have some missing values:
@@ -23,7 +25,9 @@ Below shows the data types of the columns, and the number of entries for that co
 ![Dataframe info](Images/info.png)
 
 Below gives a discription of numerical data in the dataframe:
-![Dataframe description](Images/describe)
+
+![Dataframe description](Images/describe.png)
+
 The mean average for the `Survived` feature is 0.38. Given this is a binary value, with 1 indicating survival, we can infer a 38% chance of survival for passengers in the training set. Collumns such as `Age` and `Fare` have a high standard deviation, which suggests they may need to be normalised. We can also see that 75% of passengers paid less than $31, despite the mean being $32.20 - this is because of extremely high values, such as the maximum ticket fare of $512.33. This further suggests this column can be normalised.
 
 Below are histograms for some numerical values. The `Age` column shows a fairly normal distribution, but the others do not, indicating that some feature engineering maybe of use to normalise them.
