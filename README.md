@@ -105,4 +105,28 @@ Both of these tables indicate that there may be relevent information in the dist
 
 ## Data processing
 
+In order to process this data more effectively, some feature engineering and data preparation were conducted before the dataset was exposed to our models. The following is a breif account of the actions taken, and motivations for them.
+
+### Impute the data
+
+The collumns 'Age' and 'Cabin' had some missing values. To rectify this for the age collumn, the data was imputed with the mean vallue for age. This means every missing data point was replaced with the mean age value. This is appropriate because there is only a small fraction of this data missing; if a more significant number of value in the age collumn were missing, it may not be appropriate to use the mean of the data points we *do* have, because these data may not be representative. For this reason, and because it is of a special type, the 'Cabin' column was dropped all together.
+
+### Feature engineering on Cabin column
+
+Although the column itself was dropped, the data in the cabin column have still been put to use. In the 'Data' section of this document, we note that there are posible impacts on survival chance of 1) the number of cabins registered to the passengers name, and 2) the first letter of the cabin number. To incorporate this information, the number of cabins has been added as a column, and the first letters have been made into categories for which each passenger has a one-hot encoded value. Despite the large number of missing values, we found that the inclusion of these data improved performance on the network.
+
+### One-hot encode the data
+
+For the categorical columns (cabin letters, sex, embarking location) one-hot encodings were produced. This meant that the columns themselves were removed, and replaced with columns that reflect their possible values, ie the 'Sex' column would be dropped, and new columns 'Male' and 'Female' would be added. For any given row, all values for these new collumns are `0`, except in the column that represents the value associated with that passenger which is a `1`.
+
+### Normalise
+
+Finally the data is normalised, meaning it is centered around 0 and scaled to a real number value between -1 and 1. This makes the convergence of our models faster and efficient, and makes the model more effective at generalising to new data.
+
 ## References & resources
+
+Kaggle - https://www.kaggle.com
+Ken Jee - https://www.youtube.com/watch?v=I3FBJdiExcg
+NeuralNine - https://www.youtube.com/watch?v=fATVVQfFyU0
+Pytorch - https://pytorch.org
+
