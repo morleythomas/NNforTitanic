@@ -12,6 +12,21 @@ To establish a baseline, Sci-kit Learn models `RandomForestClassifier`, `Logisti
 The neural network is a feedforward network consisting of one hidden layer of 50 hidden units and a ReLU activation, followed a by an output layer of one sigmoid unit. Predictions are taken on a threshold basis, ie for outputs lower than 0.5, we predict 0 (died); and for ouputs higher we predict 1 (survived). The final architecture for this network was determined through trial and error experiments. For training, binary cross-entropy was used as a loss function, and the Adam optimiser was used with a learning rate of 0.00005 and weight decay of 0.002. These hyper-parameters were also selected through experiments.
 
 ## Results
+The results can be found in the `log.txt` file.
+
+What we have observed is an improved performance on the dataset as compared with other methods from the Scikit-learn package. The results from the Scikit-learn methods are presented below.
+
+|Method|Accuracy score|
+|---|---|
+|Naive Bayes|0.71|
+|Log. Regression|0.80|
+|Random Forest|*0.83*|
+
+As shown above in bold, the Random Forrest classifier was the most effective of the methods used. Because this is a simple binary classification task, no more sophisticated metrics for success are required than accuracy.
+
+The neural network approach was able to outperform these methods; it is true that some variations (in terms of hyperparamters and architecture) of the neural network approach would actually underfperform some or all of the above results. With the correct configuration however, significant performance was acheived that we could not replicate on the Scikit-learn methods. Below is the final result for the neural network approach:
+
+|Neural Network|0.87|
 
 ## The data
 The data consists of the following columns, including the top 5 rows so as to exemplify the value formats:
