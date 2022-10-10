@@ -126,7 +126,10 @@ Finally the data is normalised, meaning it is centered around 0 and scaled to a 
 ## References & resources
 
 Kaggle - https://www.kaggle.com
+
 Ken Jee - https://www.youtube.com/watch?v=I3FBJdiExcg
+
 NeuralNine - https://www.youtube.com/watch?v=fATVVQfFyU0
+
 Pytorch - https://pytorch.org
 
