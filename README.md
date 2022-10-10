@@ -20,13 +20,14 @@ What we have observed is an improved performance on the dataset as compared with
 |---|---|
 |Naive Bayes|0.71|
 |Log. Regression|0.80|
-|Random Forest|*0.83*|
+|Random Forest|**0.83**|
 
 As shown above in bold, the Random Forrest classifier was the most effective of the methods used. Because this is a simple binary classification task, no more sophisticated metrics for success are required than accuracy.
 
 The neural network approach was able to outperform these methods; it is true that some variations (in terms of hyperparamters and architecture) of the neural network approach would actually underfperform some or all of the above results. With the correct configuration however, significant performance was acheived that we could not replicate on the Scikit-learn methods. Below is the final result for the neural network approach:
 
-|Neural Network|0.87|
+|Neural Network|**0.87**|
+|---|---|
 
 ## The data
 The data consists of the following columns, including the top 5 rows so as to exemplify the value formats:
